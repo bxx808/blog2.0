@@ -1,38 +1,35 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel</title>
-    @vite(['resources/js/app.js'])
-</head>
-<body class="">
-<div class="user_section">
-    <div class="bg">
+@extends('layout.main')
 
-    </div>
-    <div class="user_info">
-        <div class="avatar">
-            <img src="{{asset('images/user.jpg')}}" alt="">
+@section('content')
+    <form class="article_form">
+        <textarea placeholder="Напишите что-нибудь"></textarea>
+        <button>
+            <img src="{{asset('/images/icons/send.svg')}}">
+        </button>
+    </form>
+
+    <div class="articles">
+        <div class="article">
+            <img class="main_photo" src="{{asset('/images/rectangle.jpg')}}">
+            <div class="text_content">
+                <h2>Как писать код быстро и безболезненно?</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elementum volutpat orci turpis urna. Et
+                    vestibulum, posuere tortor lacinia sit. Sagittis porttitor orci auctor in at tincidunt arcu
+                    egestas.
+                    Fusce arcu sodales lacinia eu auctor nunc nam id. Diam sit sed volutpat massa. Egestas ornare
+                    vel
+                    volutpat.
+                </p>
+                <div class="row">
+                    <div class="left">
+                        <span>21.06.2020</span>
+                        <img src="{{asset('/images/icons/ellipse.svg')}}" alt="">
+                        <span>создание сайтов</span>
+                    </div>
+                    <a href="">читать</a>
+                </div>
+            </div>
         </div>
-        <h1>Дмитрий Валак</h1>
-        <p>блог front-end разработчика</p>
     </div>
-</div>
-<div class="main_section">
-    <nav>
-        <a href="">Главная</a>
-        <a href="">Новости</a>
-        <a href="">Сообщения</a>
-    </nav>
-    <div class="content">
-        <form class="article_form">
-            <textarea placeholder="Напишите что-нибудь"></textarea>
-            <button>
-                <img src="{{asset('/images/icons/send.svg')}}">
-            </button>
-        </form>
-    </div>
-</div>
-</body>
-</html>
+@endsection
