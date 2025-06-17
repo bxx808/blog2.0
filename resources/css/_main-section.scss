@@ -1,0 +1,54 @@
+.main_section {
+    background-color: $main-section-color;
+    width: 70%;
+    flex-grow: 1;
+
+    nav {
+        background-color: $black;
+        display: flex;
+        a{
+            text-decoration: none;
+            display: block;
+            padding: 13px 15px;
+            &:hover{
+                background-color: #3137C9 ;
+            }
+        }
+    }
+
+    .content{
+        padding: 60px 7%;
+        .article_form {
+            width: 100%;
+            position: relative;
+            textarea{
+                resize: vertical;
+                width: 100%;
+                background-color: $input-black;
+                padding: 28px;
+                font-size: 18px;
+                border-radius: 5px;
+                overflow: auto;
+                font-weight: 100;
+                height: fit-content;
+                display: block;
+                &::placeholder{
+                    font-weight: 100;
+                }
+            }
+            button{
+                background-color: $submit-color;
+                border-radius: 25px;
+                width: 44px;
+                height: 44px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                right: 20px;
+            }
+        }
+    }
+}
