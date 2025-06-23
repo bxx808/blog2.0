@@ -9,14 +9,82 @@
     <title>adminPanel</title>
 </head>
 <body>
-<div class="container">
+<div>
     <div class="row">
-        <div class="col-3">
-            <a href="{{route('admin.category.index')}}" class="text-primary fs-4">Категории</a>
+        <div>
+            <div class="row min-vh-100">
+
+                <div class="col-md-3 col-lg-2 bg-dark text-white p-0">
+                    <div class="d-flex flex-column h-100">
+
+                        <div class="p-3 text-center bg-primary">
+                            <span class="fs-4 fw-bold">Меню</span>
+                        </div>
+
+
+                        <ul class="nav nav-pills flex-column flex-grow-1 p-3">
+                            <li class="nav-item mb-2">
+                                <a href="#" class="nav-link active text-white bg-secondary">
+                                    Главная
+                                </a>
+                            </li>
+
+                            <li class="nav-item mb-2">
+                                <button
+                                    class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white"
+                                    data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="true">
+                                    <span>Посты</span>
+                                </button>
+                                <div class="collapse show" id="orders-collapse">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                        <li class="my-1">
+                                            <a href=""
+                                               class="text-white d-inline-flex align-items-center text-decoration-none rounded ps-3 py-1">
+                                                <i class="bi bi-plus-circle me-2"></i> Создать
+                                            </a>
+                                        </li>
+                                        <li class="my-1">
+                                            <a href=""
+                                               class="text-white d-inline-flex align-items-center text-decoration-none rounded ps-3 py-1">
+                                                <i class="bi bi-pencil-square me-2"></i> Редактировать
+                                            </a>
+                                        </li>
+                                        <li class="my-1">
+                                            <a href="#"
+                                               class="text-white d-inline-flex align-items-center text-decoration-none rounded ps-3 py-1">
+                                                <i class="bi bi-trash me-2"></i> Удалить
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li class="nav-item mb-2">
+                                <a href="{{route('admin.category.index')}}" class="nav-link text-white">
+                                    Категории
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a href="" class="nav-link text-white">
+                                    Теги
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-9 col-lg-10 p-4 bg-light">
+                    @if(session('success'))
+                        <div class="alert alert-success">{{session('success')}}</div>
+                    @endif
+                    @if(session('error'))
+                        <div class="alert alert-danger">{{session('error')}}</div>
+                    @endif
+                    @yield('content')
+                </div>
+            </div>
         </div>
-        <div class="col-9">
-            @yield('content')
-        </div>
+
     </div>
 </div>
 </body>
