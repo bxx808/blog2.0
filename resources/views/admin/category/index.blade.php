@@ -48,20 +48,55 @@
                                 <th scope="col"></th>
                             </tr>
                             </thead>
+                            <tbody>
                             @foreach($categories as $category)
-                                <tbody>
                                 <tr>
                                     <th scope="row">{{$category->id}}</th>
                                     <td></td>
                                     <td>{{$category->name}}</td>
                                     <td></td>
                                 </tr>
-                                </tbody>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="accordion accordion-flush"
+                                             id="accordionFlushExample{{$category->id}}">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header">
+                                                    <button class="accordion-button {{$show ? '' : 'collapsed'}}"
+                                                            type="button" data-bs-toggle="collapse"
+                                                            data-bs-target="#flush-collapseOne{{$category->id}}"
+                                                            aria-expanded="false" aria-controls="flush-collapseOne">
+                                                        Изменить категорию
+                                                    </button>
+                                                </h2>
+                                                <div id="flush-collapseOne{{$category->id}}"
+                                                     class="accordion-collapse collapse {{$show ? 'show' : ''}}"
+                                                     data-bs-parent="#accordionFlushExample{{$category->id}}">
+                                                    <div class="accordion-body">
+                                                        <form action="{{route('admin.category.edit', $category->id)}}"
+                                                              method="post">
+                                                            @method('patch')
+                                                            @csrf
+                                                            <label for="inputPassword5"
+                                                                   class="form-label">Категория</label>
+                                                            <input type="text" name="name" class="form-control mb-3"
+                                                                   value="{{$category->name}}">
+                                                            <button type="submit" class="btn btn-primary">Отправить
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
                             @endforeach
+                            </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 @endsection

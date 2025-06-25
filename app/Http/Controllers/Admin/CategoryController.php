@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Category\EditRequest;
 use App\Http\Requests\Admin\Category\StoreRequest;
 use App\Models\Category;
 use App\Services\Category\CategoryStoreService;
@@ -45,5 +46,12 @@ class CategoryController extends Controller
             ]);
             return redirect()->route('admin.category.index')->with('error', $e->getMessage() . 'Код ошибки: ' . $uuid);
         }
+    }
+
+    public function edit(EditRequest $request, Category $category)
+    {
+        $data = $request->validated();
+        $category->update($data);
+        return redirect()->route('admin.category.index');
     }
 }

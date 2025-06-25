@@ -12,4 +12,5 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [PageController::class, "index"])->name('admin.index');
     Route::get('/categories', [CategoryController::class, "index"])->name('admin.category.index');
     Route::post('/categories/store', [CategoryController::class, "store"])->name('admin.category.store');
+    Route::patch('/categories/edit/{category}', [CategoryController::class, "edit"])->name('admin.category.edit');
 });
