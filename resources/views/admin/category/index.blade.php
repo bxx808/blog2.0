@@ -5,87 +5,90 @@
 @endphp
 
 @section('content')
-    <div class="accordion accordion-flush" id="accordionFlushExample">
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button {{$show ? '' : 'collapsed'}}" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                    Добавить категорию
-                </button>
-            </h2>
-            <div id="flush-collapseOne" class="accordion-collapse collapse {{$show ? 'show' : ''}}"
-                 data-bs-parent="#accordionFlushExample">
-                <div class="accordion-body">
-                    <form action="{{route('admin.category.store')}}" method="post">
-                        @csrf
-                        @error('category')
-                        <div class="d-block text-danger">
-                            {{$message}}
-                        </div>
-                        @enderror
-                        <label for="inputPassword5" class="form-label">Категория</label>
-                        <input type="text" name="category" class="form-control mb-3" value="{{old('category')}}">
-                        <button type="submit" class="btn btn-primary">Отправить</button>
-                    </form>
+    {{ Breadcrumbs::render('admin.category.index') }}
+    <section id="categories">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button {{$show ? '' : 'collapsed'}}" type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Добавить категорию
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse {{$show ? 'show' : ''}}"
+                     data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <form action="{{route('admin.category.store')}}" method="post">
+                            @csrf
+                            @error('category')
+                            <div class="d-block text-danger">
+                                {{$message}}
+                            </div>
+                            @enderror
+                            <label for="inputPassword5" class="form-label">Категория</label>
+                            <input type="text" name="category" class="form-control mb-3" value="{{old('category')}}">
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-6">
-                <div class="card border-0 shadow-lg">
-                    <div class="card-header bg-black bg-gradient text-white py-3">
-                        <h2 class="h4 mb-0 text-center"><i class="bi bi-plus-circle me-2"></i>Список категорий</h2>
-                    </div>
-                    <div class="card-body p-4 p-md-5">
-                        <table class="table">
-                            <thead class="thead-dark">
+        <div class="container py-5">
+            <h3 class="">Список категорий</h3>
+            <div class="card ">
+                <div class="card-body p-0">
+                    <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true"
+                         style="position: relative">
+                        <table class="table table-striped">
+                            <thead>
                             <tr>
-                                <th scope="col">#</th>
-                                <th scope="col"></th>
-                                <th scope="col">Название</th>
-                                <th scope="col"></th>
+                                <th>#</th>
+                                <th>Название</th>
+                                <th>Действия</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($categories as $category)
                                 <tr>
-                                    <th scope="row">{{$category->id}}</th>
-                                    <td></td>
+                                    <td>{{$category->id}}</td>
                                     <td>{{$category->name}}</td>
-                                    <td></td>
+                                    <td class="d-flex gap-3">
+                                        <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#flush-collapseOne{{$category->id}}">
+                                            Изменить
+                                        </button>
+                                        <form action="{{route('admin.category.delete', ['category' => $category->id])}}"
+                                              method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-sm btn-outline-danger" type="submit">
+                                                Удалить
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
-                                        <div class="accordion accordion-flush"
-                                             id="accordionFlushExample{{$category->id}}">
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header">
-                                                    <button class="accordion-button {{$show ? '' : 'collapsed'}}"
-                                                            type="button" data-bs-toggle="collapse"
-                                                            data-bs-target="#flush-collapseOne{{$category->id}}"
-                                                            aria-expanded="false" aria-controls="flush-collapseOne">
-                                                        Изменить категорию
-                                                    </button>
-                                                </h2>
-                                                <div id="flush-collapseOne{{$category->id}}"
-                                                     class="accordion-collapse collapse {{$show ? 'show' : ''}}"
-                                                     data-bs-parent="#accordionFlushExample{{$category->id}}">
-                                                    <div class="accordion-body">
-                                                        <form action="{{route('admin.category.edit', $category->id)}}"
-                                                              method="post">
-                                                            @method('patch')
-                                                            @csrf
-                                                            <label for="inputPassword5"
-                                                                   class="form-label">Категория</label>
-                                                            <input type="text" name="name" class="form-control mb-3"
+                                    <td colspan="3" class="p-0">
+                                        <div class="accordion-collapse collapse"
+                                             id="flush-collapseOne{{$category->id}}">
+                                            <div class="card card-body">
+                                                <form action="{{route('admin.category.edit', $category->id)}}"
+                                                      method="post">
+                                                    @method('patch')
+                                                    @csrf
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="col-8">
+                                                            <input type="text" name="name" class="form-control"
                                                                    value="{{$category->name}}">
-                                                            <button type="submit" class="btn btn-primary">Отправить
+                                                        </div>
+                                                        <div class="">
+                                                            <button type="submit" class="btn btn-sm btn-primary">
+                                                                Сохранить
                                                             </button>
-                                                        </form>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </td>
@@ -97,6 +100,14 @@
                 </div>
             </div>
         </div>
-    </div>
-
+        <div class="d-flex justify-content-end">
+            <a href="{{route('admin.category.trash')}}" class="btn btn-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                </svg>
+                Корзина
+            </a>
+        </div>
+    </section>
 @endsection
