@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Admin\Tag\TagEditRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Tag\StoreRequest as TagStoreRequest;
 use App\Models\Tag;
@@ -79,8 +80,25 @@ class TagController extends Controller
         }
     }
 
-    public function edit()
+    public function edit(TagEditRequest $request, Tag $tag)
     {
-
+        try {
+            $data = $request->validated();
+            $tag->update($data);
+            return redirect()->route('admin.tag.index');
+        } catch (UniqueConstraintViolationException $e) {
+            $uuid = Str::uuid();
+            Log::error($uuid, [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'method' => $request->getMethod(),
+                'url' => $request->fullUrl(),
+                'line' => $e->getLine(),
+                'stack_trace' => $e->getTraceAsString(),
+            ]);
+            return redirect()->route('admin.tag.index')->with('error', 'Такой тег уже существует, Код ошибки: ' . $uuid);
+        } catch (DomainException $e) {
+            return redirect()->route('admin.tag.index')->with('error', $e->getMessage());
+        }
     }
 }
