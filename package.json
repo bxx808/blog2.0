@@ -16,6 +16,7 @@
     "dependencies": {
         "@fontsource/open-sans": "^5.2.6",
         "@fontsource/roboto": "^5.2.6",
-        "bootstrap": "^5.3.7"
+        "bootstrap": "^5.3.7",
+        "ckeditor5": "^46.0.2"
     }
 }

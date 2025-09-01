@@ -38,7 +38,7 @@
                                 <div class="collapse show" id="orders-collapse">
                                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                                         <li class="my-1">
-                                            <a href=""
+                                            <a href="{{route('admin.post.create')}}"
                                                class="text-white d-inline-flex align-items-center text-decoration-none rounded ps-3 py-1">
                                                 <i class="bi bi-plus-circle me-2"></i> Создать
                                             </a>

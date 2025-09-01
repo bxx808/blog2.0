@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\TagController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,4 +27,7 @@ Route::prefix('admin')->group(function () {
     Route::patch('/tag/edit/{tag}', [TagController::class, "edit"])->name('admin.tag.edit');
     Route::delete('/tag/delete/{tag}', [TagController::class, "delete"])->name('admin.tag.delete');
     Route::patch('/tag/recover/{tag}', [TagController::class, "recover"])->name('admin.tag.recover');
+
+    Route::get('/posts/create', [PostController::class, "index"])->name('admin.post.create');
+    Route::post('/posts/create', [PostController::class, "store"])->name('admin.post.store');
 });
