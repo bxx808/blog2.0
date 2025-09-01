@@ -1,8 +1,8 @@
 @extends('layout.admin')
 
 @section('content')
-    {{ Breadcrumbs::render('admin.category.trash') }}
-    <section id="categories" class="view_list">
+    {{ Breadcrumbs::render('admin.tag.trash') }}
+    <section id="tag" class="view_list">
         <div class="container py-5">
             <h3 class="">Список категорий</h3>
             <div class="card ">
@@ -18,13 +18,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($categories as $category)
+                            @foreach($tags as $tag)
                                 <tr>
-                                    <td>{{$category->id}}</td>
-                                    <td>{{$category->name}}</td>
+                                    <td>{{$tag->id}}</td>
+                                    <td>{{$tag->name}}</td>
                                     <td class="d-flex gap-3">
                                         <form
-                                            action="{{route('admin.category.destroy', ['category' => $category->id])}}"
+                                            action="{{route('admin.tag.delete', ['tag' => $tag->id])}}"
                                             method="post">
                                             @csrf
                                             @method('delete')
@@ -33,7 +33,7 @@
                                             </button>
                                         </form>
                                         <form
-                                            action="{{route('admin.category.recover', ['category' => $category->id])}}"
+                                            action="{{route('admin.tag.recover', ['tag' => $tag->id])}}"
                                             method="post">
                                             @csrf
                                             @method('patch')

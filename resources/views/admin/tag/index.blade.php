@@ -5,29 +5,29 @@
 @endphp
 
 @section('content')
-    {{ Breadcrumbs::render('admin.category.index') }}
-    <section id="categories" class="view_list">
+    {{ Breadcrumbs::render('admin.tag.index') }}
+    <section id="tag" class="view_list">
         <div class="accordion accordion-flush" id="accordionFlushExample">
             <div class="accordion-item">
                 <h2 class="accordion-header">
                     <button class="accordion-button {{$show ? '' : 'collapsed'}}" type="button"
                             data-bs-toggle="collapse"
                             data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        Добавить категорию
+                        Добавить тег
                     </button>
                 </h2>
                 <div id="flush-collapseOne" class="accordion-collapse collapse {{$show ? 'show' : ''}}"
                      data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
-                        <form action="{{route('admin.category.store')}}" method="post">
+                        <form action="{{route('admin.tag.store')}}" method="post">
                             @csrf
-                            @error('category')
+                            @error('tag')
                             <div class="d-block text-danger">
                                 {{$message}}
                             </div>
                             @enderror
-                            <label for="inputPassword5" class="form-label">Категория</label>
-                            <input type="text" name="category" class="form-control mb-3" value="{{old('category')}}">
+                            <label for="inputPassword5" class="form-label">Тег</label>
+                            <input type="text" name="name" class="form-control mb-3" value="{{old('name')}}">
                             <button type="submit" class="btn btn-primary">Отправить</button>
                         </form>
                     </div>
@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="container py-5">
-            <h3 class="">Список категорий</h3>
+            <h3 class="">Список тегов</h3>
             <div class="card ">
                 <div class="card-body p-0">
                     <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true"
@@ -49,16 +49,16 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($categories as $category)
+                            @foreach($tags as $tag)
                                 <tr>
-                                    <td>{{$category->id}}</td>
-                                    <td>{{$category->name}}</td>
+                                    <td>{{$tag->id}}</td>
+                                    <td>{{$tag->name}}</td>
                                     <td class="d-flex gap-3">
                                         <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#flush-collapseOne{{$category->id}}">
+                                                data-bs-target="#flush-collapseOne{{$tag->id}}">
                                             Изменить
                                         </button>
-                                        <form action="{{route('admin.category.delete', ['category' => $category->id])}}"
+                                        <form action="{{route('admin.tag.delete', ['tag' => $tag->id])}}"
                                               method="post">
                                             @csrf
                                             @method('delete')
@@ -71,16 +71,16 @@
                                 <tr>
                                     <td colspan="3" class="p-0">
                                         <div class="accordion-collapse collapse"
-                                             id="flush-collapseOne{{$category->id}}">
+                                             id="flush-collapseOne{{$tag->id}}">
                                             <div class="card card-body">
-                                                <form action="{{route('admin.category.edit', $category->id)}}"
+                                                <form action="{{route('admin.tag.edit', $tag->id)}}"
                                                       method="post">
                                                     @method('patch')
                                                     @csrf
                                                     <div class="d-flex justify-content-between">
                                                         <div class="col-8">
                                                             <input type="text" name="name" class="form-control"
-                                                                   value="{{$category->name}}">
+                                                                   value="{{$tag->name}}">
                                                         </div>
                                                         <div class="">
                                                             <button type="submit" class="btn btn-sm btn-primary">
@@ -101,7 +101,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-end">
-            <a href="{{route('admin.category.trash')}}" class="btn btn-secondary">
+            <a href="{{route('admin.tag.trash')}}" class="btn btn-secondary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
                      viewBox="0 0 16 16">
                     <path

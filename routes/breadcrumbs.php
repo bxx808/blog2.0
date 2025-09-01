@@ -17,3 +17,13 @@ Breadcrumbs::for('admin.category.trash', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.category.index');
     $trail->push('Корзина', route('admin.category.trash'));
 });
+// Панель/Теги
+Breadcrumbs::for('admin.tag.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.index');
+    $trail->push('Теги', route('admin.tag.index'));
+});
+// Панель/Теги/Корзина
+Breadcrumbs::for('admin.tag.trash', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.tag.index');
+    $trail->push('Корзина', route('admin.tag.trash'));
+});
