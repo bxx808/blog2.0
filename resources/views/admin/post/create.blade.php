@@ -2,13 +2,43 @@
 
 @section('content')
     <h1>Посты</h1>
-    <form method="post" action="{{route('admin.post.store')}}">
+    <form method="post" action="{{route('admin.post.store')}}" enctype="multipart/form-data">
         @csrf
-        <input name="title" class="form-control mb-2">
-        <textarea class="" id="editor">
+        @error('title')
+        <span class="text-danger">
+            {{$message}}
+        </span>
+        @enderror
+        <input name="title" class="form-control mb-2" value="{{old('title')}}">
+        @error('content')
+        <span class="text-danger">
+            {{$message}}
+        </span>
+        @enderror
+        <input type="file" class="form-control mb-2" name="main_image">
+        <textarea class="" id="editor" name="content">
+            {{old('content')}}
         </textarea>
-        <select class="form-control mt-2">
-            <option>1</option>
+        @error('category_id')
+        <span class="text-danger">
+            {{$message}}
+        </span>
+        @enderror
+        <select class="form-control mt-2" name="category_id">
+            @foreach($categories as $category)
+                <option value="{{$category->id}}">{{$category->name}}</option>
+            @endforeach
+        </select>
+        @error('tags')
+        <span class="text-danger">
+            {{$message}}
+        </span>
+        @enderror
+        <select class="form-select mt-2" name="tags[]" multiple>
+            <option selected>Выберите тег</option>
+            @foreach($tags as $tag)
+                <option value="{{$tag->id}}">{{$tag->name}}</option>
+            @endforeach
         </select>
         <button type="submit" class="btn btn-outline-success form-control mt-2">Опубликовать</button>
     </form>

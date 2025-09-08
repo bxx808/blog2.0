@@ -28,6 +28,6 @@ Route::prefix('admin')->group(function () {
     Route::delete('/tag/delete/{tag}', [TagController::class, "delete"])->name('admin.tag.delete');
     Route::patch('/tag/recover/{tag}', [TagController::class, "recover"])->name('admin.tag.recover');
 
-    Route::get('/posts/create', [PostController::class, "index"])->name('admin.post.create');
+    Route::get('/posts/create', [PostController::class, "create"])->name('admin.post.create');
     Route::post('/posts/create', [PostController::class, "store"])->name('admin.post.store');
 });
