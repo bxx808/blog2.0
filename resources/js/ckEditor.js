@@ -20,12 +20,13 @@ import {
     TableCellProperties,
     TableProperties,
     TableToolbar,
-    TextTransformation
+    TextTransformation,
+    SimpleUploadAdapter
 } from 'ckeditor5';
 
 ClassicEditor
     .create(document.querySelector('#editor'), {
-        licenseKey: 'eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3NTc5ODA3OTksImp0aSI6IjRkMjhmNWVkLTUxNTAtNDBhNC1iZTBkLTIwYmE4MGVhNDA1NSIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiLCJzaCJdLCJ3aGl0ZUxhYmVsIjp0cnVlLCJsaWNlbnNlVHlwZSI6InRyaWFsIiwiZmVhdHVyZXMiOlsiKiJdLCJ2YyI6IjNkZWE1NzQ3In0.jEXDAqV6McVcmLvPnYWLPTE9TytjPAV1nwgQF_DFHbIYgpf0WA5-YjVz7TDkW7TwSr_qXCvWNd7LiMryzWTs-A', // Or 'GPL'.
+        licenseKey: 'GPL', // Or 'GPL'.
         plugins: [
             Essentials,
             Paragraph,
@@ -47,15 +48,27 @@ ClassicEditor
             TableCellProperties,
             TableProperties,
             TableToolbar,
-            TextTransformation
+            TextTransformation,
+            SimpleUploadAdapter
         ],
         toolbar: [
             'undo', 'redo', '|', 'bold', 'italic', '|',
-            'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'sourceEditing', 'insertImageViaUrl', 'insertTable'
-        ]
+            'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'sourceEditing', 'insertImageViaUrl', 'insertTable', 'imageUpload',
+        ],
+        simpleUpload: {
+            uploadUrl: '/admin/ckeditor/upload',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        }
     })
     .then(editor => {
-        window.editor = editor;
+        editor.plugins.get('FileRepository').on('change:uploaded', (evt, data) => {
+            console.log('File uploaded:', data);
+        });
+        editor.plugins.get('FileRepository').on('change:uploadError', (evt, data) => {
+            console.error('Upload error:', data);
+        });
     })
     .catch(error => {
         console.error(error);

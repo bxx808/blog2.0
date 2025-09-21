@@ -33,6 +33,7 @@ class PostController extends Controller
                 'category_id' => $data['category_id'],
                 'user_id' => 1,
                 'main_image' => $path,
+                'short_description' => $data['short_description'],
             ]);
             return redirect()->route('admin.post.create')->with('success', 'Post created successfully!');
         } catch (Exception $e) {

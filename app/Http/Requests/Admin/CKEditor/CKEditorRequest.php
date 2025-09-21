@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admin\Post;
+namespace App\Http\Requests\Admin\CKEditor;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostStoreRequest extends FormRequest
+class CKEditorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,7 @@ class PostStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|min:3|max:255',
-            'content' => 'required|string|min:3',
-            'category_id' => 'required|exists:categories,id',
-            'tags' => 'nullable|array',
-            'main_image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
-            'short_description' => 'string|min:3|max:255',
+            'upload' => 'required|image|mimes:jpeg,jpg,png,gif',
         ];
     }
 }

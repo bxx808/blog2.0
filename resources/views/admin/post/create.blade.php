@@ -10,12 +10,23 @@
         </span>
         @enderror
         <input name="title" class="form-control mb-2" value="{{old('title')}}">
-        @error('content')
+        @error('short_description')
+        <span class="text-danger">
+            {{$message}}
+        </span>
+        @enderror
+        <textarea class="form-control mb-2" name="short_description" value="{{old('short_description')}}"></textarea>
+        @error('main_image')
         <span class="text-danger">
             {{$message}}
         </span>
         @enderror
         <input type="file" class="form-control mb-2" name="main_image">
+        @error('content')
+        <span class="text-danger">
+            {{$message}}
+        </span>
+        @enderror
         <textarea class="" id="editor" name="content">
             {{old('content')}}
         </textarea>

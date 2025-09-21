@@ -1,14 +1,17 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CKEditorController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\PageController as UserPageController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\TagController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', [UserPageController::class, 'index'])->name('home');
+Route::get('/post/{id}', [UserPageController::class, 'post'])->name('post');
+
 
 Route::prefix('admin')->group(function () {
     Route::get('/', [PageController::class, "index"])->name('admin.index');
@@ -30,4 +33,6 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/posts/create', [PostController::class, "create"])->name('admin.post.create');
     Route::post('/posts/create', [PostController::class, "store"])->name('admin.post.store');
+
+    Route::post('/ckeditor/upload', [CkeditorController::class, "upload"])->name('ckeditor.upload');
 });

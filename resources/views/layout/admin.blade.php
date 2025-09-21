@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/js/admin.js'])
     <title>adminPanel</title>
+    <meta name="csrf-token" content="{{csrf_token()}}">
 </head>
 <body>
 <div>
