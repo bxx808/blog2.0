@@ -33,6 +33,9 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/posts/create', [PostController::class, "create"])->name('admin.post.create');
     Route::post('/posts/create', [PostController::class, "store"])->name('admin.post.store');
+    Route::get('/posts', [PostController::class, "index"])->name('admin.post.index');
+    Route::get('/posts/edit/{post}', [PostController::class, "edit"])->name('admin.post.edit');
+    Route::patch('/posts/edit/{post}', [PostController::class, "update"])->name('admin.post.update');
 
     Route::post('/ckeditor/upload', [CkeditorController::class, "upload"])->name('ckeditor.upload');
 });

@@ -45,15 +45,9 @@
                                             </a>
                                         </li>
                                         <li class="my-1">
-                                            <a href=""
+                                            <a href="{{route('admin.post.index')}}"
                                                class="text-white d-inline-flex align-items-center text-decoration-none rounded ps-3 py-1">
-                                                <i class="bi bi-pencil-square me-2"></i> Редактировать
-                                            </a>
-                                        </li>
-                                        <li class="my-1">
-                                            <a href="#"
-                                               class="text-white d-inline-flex align-items-center text-decoration-none rounded ps-3 py-1">
-                                                <i class="bi bi-trash me-2"></i> Удалить
+                                                <i class="bi bi-pencil-square me-2"></i> Все посты
                                             </a>
                                         </li>
                                     </ul>
