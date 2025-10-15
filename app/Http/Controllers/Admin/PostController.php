@@ -8,12 +8,25 @@ use App\Http\Requests\Admin\Post\PostStoreRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Services\Post\PostStoreService;
+use App\Services\Post\PostUpdateService;
 use Exception;
 use http\Env\Request;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+    private PostUpdateService $postUpdateService;
+    private PostStoreService $postStoreService;
+    public function __construct(
+        PostUpdateService $postUpdateService,
+        PostStoreService $postStoreService
+    )
+    {
+        $this->postUpdateService = $postUpdateService;
+        $this->postStoreService = $postStoreService;
+    }
+
     public function index()
     {
 
@@ -36,18 +49,7 @@ class PostController extends Controller
     {
         try {
             $data = $request->validated();
-            $path = Storage::put('posts', $data['main_image']);
-            $post = Post::create([
-                'title' => $data['title'],
-                'content' => $data['content'],
-                'category_id' => $data['category_id'],
-                'user_id' => 1,
-                'main_image' => $path,
-                'short_description' => $data['short_description'],
-            ]);
-            if (isset($data['tags'])) {
-                $post->tags()->attach($data['tags']);
-            }
+            $this->postStoreService->execute(data: $data);
             return redirect()->route('admin.post.create')->with('success', 'Post created successfully!');
         } catch (Exception $e) {
             return redirect()->route('admin.post.create')->with('error', $e->getMessage());
@@ -67,26 +69,17 @@ class PostController extends Controller
     {
         try {
             $data = $request->validated();
-            $postData = [
-                'title' => $data['title'],
-                'content' => $data['content'],
-                'category_id' => $data['category_id'],
-                'short_description' => $data['short_description'],
-            ];
-            $tagIds = $data['tags'] ?? [];
-            $post->tags()->sync($tagIds);
-            if (isset($data['main_image'])) {
-                $path = Storage::put('posts', $data['main_image']);
-                $postData['main_image'] = $path;
-                if (Storage::exists($post->main_image)) {
-                    Storage::delete($post->main_image);
-                }
-            }
-            $post->update($postData);
-            return redirect()->route('admin.post.edit', $post)->with('success', 'Post updated successfully!');
+            $this->postUpdateService->execute(data: $data, post: $post);
+            return redirect()->route('admin.post.index')->with('success', 'Post updated successfully!');
         } catch (Exception $e) {
-            return redirect()->route('admin.post.edit', $post)->with('error', $e->getMessage());
+            return redirect()->route('admin.post.index')->with('error', $e->getMessage());
         }
+    }
+
+    public function delete(Post $post)
+    {
+        $post->delete();
+        return redirect()->route('admin.post.index')->with('success', 'Post deleted successfully!');
     }
 
 }

@@ -25,7 +25,7 @@
                         <a class="btn btn-sm btn-primary" href="{{route('admin.post.edit', [$post->id])}}" >
                             Изменить
                         </a>
-                        <form action="{{route('admin.tag.delete', ['tag' => $tag->id])}}"
+                        <form action="{{route('admin.post.delete', ['post' => $post->id])}}"
                               method="post">
                             @csrf
                             @method('delete')
