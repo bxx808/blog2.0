@@ -64,6 +64,30 @@
                                     Теги
                                 </a>
                             </li>
+
+                            <li class="nav-item mb-2">
+                                <button
+                                    class="btn btn-toggle d-inline-flex align-items-center rounded border-0 text-white"
+                                    data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="true">
+                                    <span>Пользователи</span>
+                                </button>
+                                <div class="collapse show" id="orders-collapse">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                        <li class="my-1">
+                                            <a href="{{route('admin.user.create')}}"
+                                               class="text-white d-inline-flex align-items-center text-decoration-none rounded ps-3 py-1">
+                                                Добавить
+                                            </a>
+                                        </li>
+                                        <li class="my-1">
+                                            <a href="{{route('admin.user.index')}}"
+                                               class="text-white d-inline-flex align-items-center text-decoration-none rounded ps-3 py-1">
+                                                <i class="bi bi-pencil-square me-2"></i> Список
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </div>

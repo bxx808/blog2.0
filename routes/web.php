@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CKEditorController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\PageController as UserPageController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\TagController;
@@ -39,4 +40,8 @@ Route::prefix('admin')->group(function () {
     Route::delete('/posts/delete/{post}', [PostController::class, "delete"])->name('admin.post.delete');
 
     Route::post('/ckeditor/upload', [CkeditorController::class, "upload"])->name('ckeditor.upload');
+
+    Route::get('/users', [UserController::class, "index"])->name('admin.user.index');
+    Route::get('/user/create', [UserController::class, "create"])->name('admin.user.create');
+    Route::post('/user/create', [UserController::class, "store"])->name('admin.user.store');
 });
