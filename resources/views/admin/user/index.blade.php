@@ -17,12 +17,12 @@
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
                     <td class="d-flex gap-3">
-                        <a class="btn btn-sm btn-primary" href="http://127.0.0.1:8000/admin/posts/edit/16">
+                        <a class="btn btn-sm btn-primary" href="{{route('admin.user.edit', $user->id)}}">
                             Изменить
                         </a>
-                        <form action="http://127.0.0.1:8000/admin/posts/delete/16" method="post">
-                            <input type="hidden" name="_token" value="S9Mjr16ZB4YcQvfv7b29ZerBO1VDFfI1fgHxvM25"
-                                   autocomplete="off"> <input type="hidden" name="_method" value="delete">
+                        <form action="{{route('admin.user.delete', $user->id)}}" method="post">
+                            @csrf
+                            @method('DELETE')
                             <button class="btn btn-sm btn-outline-danger" type="submit">
                                 Удалить
                             </button>

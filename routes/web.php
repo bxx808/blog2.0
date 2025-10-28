@@ -44,4 +44,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/users', [UserController::class, "index"])->name('admin.user.index');
     Route::get('/user/create', [UserController::class, "create"])->name('admin.user.create');
     Route::post('/user/create', [UserController::class, "store"])->name('admin.user.store');
+    Route::get('/user/{user}/edit', [UserController::class, "edit"])->name('admin.user.edit');
+    Route::post('/user/{user}/edit', [UserController::class, "update"])->name('admin.user.update');
+    Route::delete('/user/{user}/delete', [UserController::class, "delete"])->name('admin.user.delete');
+
 });

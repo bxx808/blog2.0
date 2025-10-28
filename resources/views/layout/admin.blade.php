@@ -82,7 +82,7 @@
                                         <li class="my-1">
                                             <a href="{{route('admin.user.index')}}"
                                                class="text-white d-inline-flex align-items-center text-decoration-none rounded ps-3 py-1">
-                                                <i class="bi bi-pencil-square me-2"></i> Список
+                                                Список
                                             </a>
                                         </li>
                                     </ul>
