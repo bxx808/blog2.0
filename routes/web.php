@@ -4,17 +4,20 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CKEditorController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController as UserPageController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [UserPageController::class, 'index'])->name('home');
 Route::get('/post/{id}', [UserPageController::class, 'post'])->name('post');
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('login', [AuthController::class, 'auth'])->name('auth');
 
-
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/', [PageController::class, "index"])->name('admin.index');
 
     Route::get('/categories', [CategoryController::class, "index"])->name('admin.category.index');
