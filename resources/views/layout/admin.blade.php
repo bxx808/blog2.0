@@ -25,7 +25,7 @@
 
                         <ul class="nav nav-pills flex-column flex-grow-1 p-3">
                             <li class="nav-item mb-2">
-                                <a href="#" class="nav-link active text-white bg-secondary">
+                                <a href="{{route('home')}}" class="nav-link active text-white bg-secondary">
                                     Главная
                                 </a>
                             </li>

@@ -20,10 +20,36 @@
     </div>
 </div>
 <div class="main_section">
+    @if(session('success'))
+        <div class="toast toast_success">
+            <span>{{session('success')}}</span>
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="toast toast_error">
+            <span>{{session('error')}}</span>
+        </div>
+    @endif
     <nav>
-        <a href="">Главная</a>
-        <a href="">Новости</a>
-        <a href="">Сообщения</a>
+        @auth
+            <div class="">
+                <a href="">Главная</a>
+                <a href="">Новости</a>
+                <a href="">Сообщения</a>
+            </div>
+            <div class="">
+                @if(auth()->user()?->role == App\Models\User::ROLE_ADMIN)
+                    <a href="{{route('admin.index')}}">Админпанель</a>
+                @endif
+                <form action="{{route('logout')}}" method="post">
+                    @csrf
+                    <button type="submit">Выход</button>
+                </form>
+            </div>
+        @else
+            <span></span>
+            <a href="{{route('login')}}">Войти</a>
+        @endauth
     </nav>
     <div class="content">
         @yield('content')
