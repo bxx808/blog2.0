@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PageController as UserPageController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\SettingController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +20,11 @@ Route::post('login', [AuthController::class, 'auth'])->name('auth');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('register', [AuthController::class, 'register'])->name('register');
 Route::post('register', [AuthController::class, 'signup'])->name('signup');
+Route::middleware(['auth'])->group(function () {
+    Route::get('safety', [SettingController::class, 'safety'])->name('safety');
+    Route::get('general', [SettingController::class, 'general'])->name('general');
+    Route::post('general', [SettingController::class, 'updateGeneral'] )->name('general.update');
+});
 
 Route::prefix('admin')->middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::get('/', [PageController::class, "index"])->name('admin.index');
