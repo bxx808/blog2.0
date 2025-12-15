@@ -514,6 +514,14 @@
             background: #555;
         }
     }
+
+    .general_content{
+        .container{
+            label{
+                color: #acacac;
+            }
+        }
+    }
 }
 
 @keyframes toastAnimation {

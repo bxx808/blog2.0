@@ -25,12 +25,19 @@ class SettingController extends Controller
         $data = $request->validated();
         $user = User::find(Auth::user()->id);
         if($user){
-            if($data['avatar'] != null){
+            if(isset($data['avatar']) && $data['avatar'] != null){
                 $path = $request->file('avatar')->store('avatars', 'public');
                 if($user->avatar){
                     Storage::disk('public')->delete($user->avatar);
                 }
                 $user->avatar = $path;
+            }
+            if(isset($data['backProfile']) && $data['backProfile'] != null){
+                $path = $request->file('backProfile')->store('backProfile', 'public');
+                if($user->back_profile){
+                    Storage::disk('public')->delete($user->back_profile);
+                }
+                $user->back_profile = $path;
             }
             $user->name = $data['name'];
             $user->first_name = $data['firstName'];

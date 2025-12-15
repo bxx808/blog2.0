@@ -9,7 +9,7 @@
 <body class="">
 <div class="user_section">
     @auth()
-        <div class="bg">
+        <div class="bg" style="background-image: url({{asset(auth()->user()->backProfile)}});">
 
         </div>
         <div class="user_info">

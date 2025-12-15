@@ -23,6 +23,7 @@ class SettingUserRequest extends FormRequest
     {
         return [
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'backProfile' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'name' => 'required|string',
             'firstName' => 'required|string|max:255',
             'about' => 'required|string|max:120',

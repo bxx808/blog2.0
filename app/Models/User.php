@@ -52,4 +52,12 @@ class User extends Authenticatable
         }
         return asset('images/user.jpg');
     }
+
+    public function getBackProfileAttribute()
+    {
+        if ($this->attributes['back_profile'] != null) {
+            return Storage::url($this->attributes['back_profile']);
+        }
+        return asset('images/bgImage.jpg');
+    }
 }
